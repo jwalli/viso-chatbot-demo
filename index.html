@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karriere.Haus Chatbot Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196f3;
+        }
+        .footer {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .status {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Karriere.Haus Chatbot</h1>
+        
+        <div class="status">🟢 Demo Version - In Entwicklung</div>
+        
+        <div class="info">
+            <h3>🚀 Willkommen zur Chatbot-Demo!</h3>
+            <p><strong>Was können Sie hier testen:</strong></p>
+            <ul>
+                <li>Stellen Sie Fragen zum Unternehmen</li>
+                <li>Fragen Sie nach Karrieremöglichkeiten</li>
+                <li>Testen Sie verschiedene Gesprächsverläufe</li>
+            </ul>
+            <p><strong>⚠️ Hinweis:</strong> Dies ist eine Entwicklungsversion. Nicht alle Antworten sind final optimiert.</p>
+        </div>
+
+        <!-- Chatbot Integration -->
+        <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
+        <langflow-chat
+            window_title="Karriere.Haus-Chat-Bot"
+            flow_id="8da3f21e-4698-422e-a70a-7a9ad418da0d"
+            host_url="https://langflowailangflowlatest-production-aec5.up.railway.app"
+            api_key="...">
+        </langflow-chat>
+
+        <div class="footer">
+            <h3>📝 Feedback erwünscht!</h3>
+            <p>Ihre Meinung ist wichtig für die Weiterentwicklung.</p>
+            <p>📧 Feedback an: <a href="mailto:ihr-email@firma.de?subject=Chatbot Demo Feedback">ihr-email@firma.de</a></p>
+            <p><small>Letztes Update: Juni 2025 | Version: Demo 1.0</small></p>
+        </div>
+    </div>
+</body>
+</html>
