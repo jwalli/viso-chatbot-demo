@@ -118,7 +118,7 @@
             font-size: 1.1em;
         }
 
-        /* Chat Position Indicator */
+        /* Position Indicators */
         .position-indicator {
             position: absolute;
             bottom: 20px;
@@ -130,6 +130,19 @@
             font-size: 0.9em;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
             animation: bounce 2s infinite;
+        }
+
+        .window-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            animation: bounce 2s infinite 0.5s;
         }
 
         @keyframes bounce {
@@ -296,17 +309,20 @@
         <div class="chat-demo">
             <h3>Chat-Demo</h3>
             <div class="description">
-                Testen Sie unseren intelligenten Chatbot! Der Chat wird <strong>rechts unten</strong> 
-                neu positioniert und öffnet sich nach <strong>oben links</strong>.
+                Testen Sie unseren intelligenten Chatbot! Die Chat-Bubble ist <strong>rechts unten</strong>, 
+                das Chatfenster öffnet sich <strong>nach oben links</strong> für optimale Sichtbarkeit.
             </div>
 
             <div class="chat-placeholder">
                 <div class="icon">💬</div>
-                <h4>Chat wird geladen...</h4>
-                <p>Der Chatbot wird extrahiert und <strong>rechts unten</strong> neu positioniert.<br>
-                   Das Chatfenster öffnet sich nach <strong>oben links</strong>!</p>
+                <h4>Chat wird positioniert...</h4>
+                <p>Chat-Button: <strong>rechts unten</strong><br>
+                   Chat-Fenster: <strong>öffnet nach oben links</strong></p>
+                <div class="window-indicator">
+                    🪟 Fenster hier oben!
+                </div>
                 <div class="position-indicator">
-                    👆 Chat wird hier platziert!
+                    🔘 Button hier unten!
                 </div>
             </div>
         </div>
@@ -340,20 +356,20 @@
 
     <!-- Debug Info -->
     <div class="debug loading" id="debug">
-        🔄 Extrahiere Chat-Elemente...
+        🔄 Positioniere Chat-Elemente...
     </div>
 
     <!-- Chatbot Integration -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
     <script>
-        console.log('🚀 Starte Chat-Extraktion und Neupositionierung...');
+        console.log('🚀 Starte intelligente Chat-Positionierung...');
         
         let chatButton = null;
         let chatWindow = null;
         let isExtracted = false;
         
-        // CHAT EXTRAKTION UND NEUPOSITIONIERUNG
+        // CHAT EXTRAKTION UND INTELLIGENTE POSITIONIERUNG
         function extractAndRepositionChat() {
             console.log('🔍 Suche nach Chat-Elementen...');
             
@@ -365,50 +381,60 @@
             
             console.log('✅ Langflow-Chat gefunden:', langflowChat);
             
-            // Alle Kinder-Elemente durchsuchen
-            const allElements = langflowChat.querySelectorAll('*');
-            console.log(`🔍 Durchsuche ${allElements.length} Elemente...`);
+            // Shadow DOM prüfen
+            let elementsToSearch = [];
+            if (langflowChat.shadowRoot) {
+                console.log('🔍 Shadow DOM gefunden, durchsuche...');
+                elementsToSearch = langflowChat.shadowRoot.querySelectorAll('*');
+            } else {
+                elementsToSearch = langflowChat.querySelectorAll('*');
+            }
             
-            allElements.forEach((el, index) => {
+            console.log(`🔍 Durchsuche ${elementsToSearch.length} Elemente...`);
+            
+            const visibleElements = [];
+            
+            elementsToSearch.forEach((el, index) => {
                 const rect = el.getBoundingClientRect();
                 const isVisible = rect.width > 0 && rect.height > 0;
                 
                 if (isVisible) {
-                    console.log(`📍 Sichtbares Element ${index}:`, el, 'Position:', rect);
-                    
-                    // Button-Erkennung (meist kleiner, rund)
-                    if (!chatButton && (rect.width < 100 || rect.height < 100)) {
-                        chatButton = el;
-                        console.log('🔘 Chat-Button identifiziert:', chatButton);
-                    }
-                    
-                    // Window-Erkennung (meist größer)
-                    if (!chatWindow && rect.width > 200 && rect.height > 200) {
-                        chatWindow = el;
-                        console.log('🪟 Chat-Window identifiziert:', chatWindow);
-                    }
+                    visibleElements.push({element: el, rect: rect, index: index});
+                    console.log(`📍 Sichtbares Element ${index}:`, el.tagName, el.className, 'Größe:', rect.width, 'x', rect.height);
                 }
             });
             
-            // Fallback: Erste zwei sichtbare Elemente nehmen
-            if (!chatButton || !chatWindow) {
-                const visibleElements = Array.from(allElements).filter(el => {
-                    const rect = el.getBoundingClientRect();
-                    return rect.width > 0 && rect.height > 0;
-                });
-                
-                if (visibleElements.length >= 1 && !chatButton) {
-                    chatButton = visibleElements[0];
-                    console.log('🔘 Fallback Chat-Button:', chatButton);
+            // Intelligente Element-Identifikation
+            visibleElements.forEach(({element, rect}) => {
+                // Button-Erkennung (meist kleiner, oft rund oder quadratisch)
+                if (!chatButton && (rect.width <= 80 && rect.height <= 80)) {
+                    chatButton = element;
+                    console.log('🔘 Chat-Button identifiziert:', chatButton, 'Größe:', rect.width, 'x', rect.height);
                 }
                 
-                if (visibleElements.length >= 2 && !chatWindow) {
-                    chatWindow = visibleElements[1];
-                    console.log('🪟 Fallback Chat-Window:', chatWindow);
+                // Window-Erkennung (meist größer, rechteckig)
+                if (!chatWindow && rect.width > 200 && rect.height > 200) {
+                    chatWindow = element;
+                    console.log('🪟 Chat-Window identifiziert:', chatWindow, 'Größe:', rect.width, 'x', rect.height);
+                }
+            });
+            
+            // Fallback: Größte und kleinste Elemente
+            if (!chatButton || !chatWindow) {
+                visibleElements.sort((a, b) => (a.rect.width * a.rect.height) - (b.rect.width * b.rect.height));
+                
+                if (!chatButton && visibleElements.length > 0) {
+                    chatButton = visibleElements[0].element; // Kleinstes Element
+                    console.log('🔘 Fallback Chat-Button (kleinstes):', chatButton);
+                }
+                
+                if (!chatWindow && visibleElements.length > 1) {
+                    chatWindow = visibleElements[visibleElements.length - 1].element; // Größtes Element
+                    console.log('🪟 Fallback Chat-Window (größtes):', chatWindow);
                 }
             }
             
-            // Elemente extrahieren und neu positionieren
+            // Elemente extrahieren und positionieren
             if (chatButton) {
                 extractElement(chatButton, 'button');
             }
@@ -420,16 +446,20 @@
             return chatButton !== null;
         }
         
-        // ELEMENT EXTRAKTION
+        // ELEMENT EXTRAKTION MIT OPTIMALER POSITIONIERUNG
         function extractElement(element, type) {
             console.log(`🚀 Extrahiere ${type}:`, element);
             
             try {
-                // Element aus ursprünglichem Container entfernen
+                // Element klonen
                 const clone = element.cloneNode(true);
                 
-                // Neue Positionierung anwenden
+                // Event-Listener kopieren (wichtig für Funktionalität)
+                copyEventListeners(element, clone);
+                
+                // Positionierung anwenden
                 if (type === 'button') {
+                    // Button: Rechts unten
                     clone.style.cssText = `
                         position: fixed !important;
                         bottom: 30px !important;
@@ -439,37 +469,80 @@
                         z-index: 10001 !important;
                         transform: none !important;
                         margin: 0 !important;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
                     `;
                 } else if (type === 'window') {
+                    // Window: Oberhalb des Buttons, nach links ausgerichtet
                     clone.style.cssText = `
                         position: fixed !important;
-                        bottom: 90px !important;
+                        bottom: 100px !important;
                         right: 30px !important;
                         left: auto !important;
                         top: auto !important;
                         z-index: 10000 !important;
-                        max-height: calc(100vh - 130px) !important;
+                        max-height: calc(100vh - 150px) !important;
+                        max-width: 400px !important;
+                        width: 400px !important;
                         transform: none !important;
                         margin: 0 !important;
+                        box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+                        border-radius: 15px !important;
+                        overflow: hidden !important;
                     `;
+                    
+                    // Zusätzliche Responsive-Anpassung
+                    if (window.innerWidth < 500) {
+                        clone.style.width = 'calc(100vw - 60px) !important';
+                        clone.style.maxWidth = 'calc(100vw - 60px) !important';
+                        clone.style.right = '30px !important';
+                        clone.style.left = '30px !important';
+                    }
                 }
                 
                 // Zum Body hinzufügen
                 document.body.appendChild(clone);
                 
                 // Original verstecken
-                element.style.display = 'none';
+                element.style.display = 'none !important';
+                element.style.visibility = 'hidden !important';
                 
                 console.log(`✅ ${type} erfolgreich extrahiert und positioniert`);
                 
+                // Referenzen aktualisieren
                 if (type === 'button') {
                     chatButton = clone;
                 } else {
                     chatWindow = clone;
                 }
                 
+                return clone;
+                
             } catch (error) {
                 console.error(`❌ Fehler beim Extrahieren von ${type}:`, error);
+                return null;
+            }
+        }
+        
+        // EVENT-LISTENER KOPIEREN (für Funktionalität)
+        function copyEventListeners(original, clone) {
+            try {
+                // Häufige Event-Types für Chat-Elemente
+                const events = ['click', 'mousedown', 'mouseup', 'touchstart', 'touchend'];
+                
+                events.forEach(eventType => {
+                    clone.addEventListener(eventType, function(e) {
+                        // Event an Original weiterleiten
+                        const newEvent = new Event(eventType, {
+                            bubbles: true,
+                            cancelable: true
+                        });
+                        original.dispatchEvent(newEvent);
+                    });
+                });
+                
+                console.log('✅ Event-Listener kopiert');
+            } catch (error) {
+                console.log('⚠️ Event-Listener konnten nicht kopiert werden:', error);
             }
         }
         
@@ -485,42 +558,58 @@
             const placeholder = document.querySelector('.chat-placeholder');
             
             if (extractAndRepositionChat()) {
-                console.log('✅ Chat erfolgreich extrahiert!');
+                console.log('✅ Chat erfolgreich extrahiert und positioniert!');
                 
-                debugDiv.innerHTML = '✅ Chat extrahiert und repositioniert!<br><small>Rechts unten</small>';
+                debugDiv.innerHTML = '✅ Chat optimal positioniert!<br><small>Button: rechts unten | Fenster: oben links</small>';
                 debugDiv.className = 'debug success';
                 
                 placeholder.innerHTML = `
                     <div class="icon">✅</div>
-                    <h4>Chat erfolgreich repositioniert!</h4>
-                    <p>Der Chatbot wurde aus dem Original-Container extrahiert<br>
-                       und <strong>rechts unten</strong> neu positioniert!</p>
+                    <h4>Chat perfekt positioniert!</h4>
+                    <p><strong>Chat-Button:</strong> Rechts unten<br>
+                       <strong>Chat-Fenster:</strong> Öffnet nach oben links</p>
+                    <div class="window-indicator">
+                        🪟 Fenster öffnet hier!
+                    </div>
                     <div class="position-indicator">
-                        👆 Chat ist jetzt hier!
+                        🔘 Button ist hier!
                     </div>
                 `;
                 
                 isExtracted = true;
                 
-                // Kontinuierliche Überwachung für neue Elemente
+                // Überwachung für Responsive-Anpassungen
+                window.addEventListener('resize', () => {
+                    if (chatWindow && window.innerWidth < 500) {
+                        chatWindow.style.width = 'calc(100vw - 60px) !important';
+                        chatWindow.style.maxWidth = 'calc(100vw - 60px) !important';
+                        chatWindow.style.left = '30px !important';
+                    } else if (chatWindow) {
+                        chatWindow.style.width = '400px !important';
+                        chatWindow.style.maxWidth = '400px !important';
+                        chatWindow.style.left = 'auto !important';
+                    }
+                });
+                
+                // Kontinuierliche Überwachung
                 setInterval(() => {
                     if (!chatButton || !document.body.contains(chatButton)) {
-                        console.log('🔄 Chat-Button verloren, neu extrahieren...');
+                        console.log('🔄 Chat-Elemente verloren, neu extrahieren...');
                         extractAndRepositionChat();
                     }
-                }, 3000);
+                }, 5000);
                 
             } else if (attempts < maxAttempts) {
-                debugDiv.innerHTML = `🔄 Extraktion Versuch ${attempts}/${maxAttempts}...`;
+                debugDiv.innerHTML = `🔄 Positionierung Versuch ${attempts}/${maxAttempts}...`;
                 setTimeout(monitorAndExtract, 1000);
             } else {
-                debugDiv.innerHTML = '❌ Chat-Extraktion fehlgeschlagen';
+                debugDiv.innerHTML = '❌ Chat-Positionierung fehlgeschlagen';
                 debugDiv.className = 'debug error';
                 
                 placeholder.innerHTML = `
                     <div class="icon">❌</div>
-                    <h4>Extraktion fehlgeschlagen</h4>
-                    <p>Der Chat konnte nicht extrahiert werden.<br>
+                    <h4>Positionierung fehlgeschlagen</h4>
+                    <p>Der Chat konnte nicht optimal positioniert werden.<br>
                        Siehe Browser-Konsole für Details.</p>
                 `;
             }
