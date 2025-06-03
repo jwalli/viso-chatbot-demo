@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visco Chatbot Demo - Test</title>
+    <title>Visco Chatbot Demo - Standard Embedding</title>
     <style>
         * {
             margin: 0;
@@ -15,15 +15,18 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f7fa;
             min-height: 100vh;
+            padding: 20px;
         }
 
         /* Header */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px 0;
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .header h1 {
@@ -37,357 +40,238 @@
             opacity: 0.9;
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Test Status Banner */
-        .test-banner {
+        /* Test Status */
+        .test-status {
             background: linear-gradient(135deg, #4caf50, #45a049);
             color: white;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
             margin-bottom: 30px;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
-        .test-banner h2 {
-            font-size: 1.5em;
-            margin-bottom: 5px;
+        .test-status h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
         }
 
-        .test-banner p {
-            opacity: 0.9;
-        }
-
-        /* Chat Demo Section */
-        .chat-demo {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .chat-demo h3 {
-            color: #333;
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .chat-demo .description {
-            color: #666;
-            font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Chat Success Indicator */
-        .chat-success {
-            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
-            border: 2px solid #4caf50;
-            border-radius: 15px;
-            padding: 40px 20px;
-            margin: 30px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .chat-success .icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            color: #4caf50;
-        }
-
-        .chat-success h4 {
-            color: #2e7d32;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-        }
-
-        .chat-success p {
-            color: #388e3c;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        /* Position Indicator */
-        .position-indicator {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: #667eea;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 0.9em;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        /* Instructions */
-        .instructions {
+        /* Info Cards */
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .instruction-card {
+        .info-card {
             background: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            text-align: center;
-            border-top: 4px solid #667eea;
+            border-left: 5px solid #667eea;
         }
 
-        .instruction-card .step {
-            background: #667eea;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin: 0 auto 20px;
-        }
-
-        .instruction-card h4 {
+        .info-card h3 {
             color: #333;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
 
-        .instruction-card p {
+        .info-card p {
             color: #666;
             line-height: 1.6;
         }
 
         /* Debug Info */
         .debug {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #4caf50, #45a049);
+            background: #2c3e50;
             color: white;
-            padding: 15px 20px;
+            padding: 20px;
             border-radius: 10px;
             font-family: monospace;
             font-size: 14px;
-            z-index: 9999;
-            max-width: 300px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            overflow-x: auto;
         }
 
-        /* Footer */
-        .footer {
-            background: #2c3e50;
+        .debug h4 {
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        /* Chat Positioning Hints */
+        .position-hint {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(102, 126, 234, 0.9);
             color: white;
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            z-index: 8888;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
         }
 
-        .footer p {
-            opacity: 0.8;
+        @keyframes pulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 0.6; }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
             .header h1 {
                 font-size: 2em;
             }
             
-            .chat-demo {
-                padding: 20px;
-            }
-            
-            .container {
-                padding: 20px 10px;
-            }
-            
-            .debug {
+            .position-hint {
                 top: 10px;
-                right: 10px;
+                left: 10px;
                 font-size: 12px;
                 padding: 10px 15px;
             }
         }
 
-        /* Animations */
-        .container {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* EINFACHE CHAT-POSITIONIERUNG: OBEN LINKS */
+        /* Versuche den Chat zu verschieben - verschiedene Ansätze */
         langflow-chat {
+            /* Methode 1: Direkte Positionierung */
             position: fixed !important;
-            top: 20px !important;
+            top: 80px !important;
             left: 20px !important;
-            bottom: auto !important;
-            right: auto !important;
             z-index: 9999 !important;
-            width: 400px !important;
-            max-width: calc(100vw - 40px) !important;
-            height: auto !important;
-            max-height: calc(100vh - 40px) !important;
+            
+            /* Methode 2: Transform */
+            transform: translate(0, 0) !important;
+            
+            /* Methode 3: Margin Override */
+            margin: 0 !important;
         }
 
-        /* Alle Kinder-Elemente */
-        langflow-chat * {
+        /* Fallback für alle möglichen Container */
+        langflow-chat > *,
+        langflow-chat div:first-child,
+        langflow-chat [class*="container"],
+        langflow-chat [class*="widget"],
+        langflow-chat [class*="chat"] {
             position: relative !important;
-            top: auto !important;
-            left: auto !important;
-            bottom: auto !important;
-            right: auto !important;
-        }
-
-        /* Mobile Anpassung */
-        @media (max-width: 500px) {
-            langflow-chat {
-                width: calc(100vw - 20px) !important;
-                left: 10px !important;
-                top: 10px !important;
-                max-height: calc(100vh - 20px) !important;
-            }
+            top: 0 !important;
+            left: 0 !important;
+            transform: none !important;
+            margin: 0 !important;
         }
     </style>
 </head>
 <body>
+    <!-- Position Hint -->
+    <div class="position-hint">
+        📍 Chat sollte hier erscheinen<br>
+        <small>(Oben links im Viewport)</small>
+    </div>
+
     <!-- Header -->
     <div class="header">
         <h1>🤖 Visco Chatbot</h1>
-        <p>Intelligente Unterhaltungen - Demo & Test</p>
+        <p>Standard Embedding Test</p>
     </div>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Test Banner -->
-        <div class="test-banner">
-            <h2>✅ CHAT AKTIV</h2>
-            <p>Der Chatbot wurde erfolgreich geladen und ist oben links positioniert!</p>
-        </div>
-
-        <!-- Chat Demo Section -->
-        <div class="chat-demo">
-            <h3>Chat-Demo</h3>
-            <div class="description">
-                Unser intelligenter Chatbot ist jetzt aktiv! Der Chat befindet sich <strong>oben links</strong> 
-                im Viewport für optimale Sichtbarkeit und einfache Bedienung.
-            </div>
-
-            <div class="chat-success">
-                <div class="icon">✅</div>
-                <h4>Chat erfolgreich positioniert!</h4>
-                <p><strong>Position:</strong> Oben links im Viewport<br>
-                   <strong>Größe:</strong> 400px breit (responsive)<br>
-                   <strong>Sichtbarkeit:</strong> Immer im sichtbaren Bereich<br>
-                   <strong>Mobile:</strong> Automatische Anpassung</p>
-                <div class="position-indicator">
-                    📍 Chat hier oben links!
-                </div>
-            </div>
-        </div>
-
-        <!-- Instructions -->
-        <div class="instructions">
-            <div class="instruction-card">
-                <div class="step">1</div>
-                <h4>Chat finden</h4>
-                <p>Der Chat befindet sich <strong>oben links</strong> auf der Seite und ist sofort sichtbar.</p>
-            </div>
-
-            <div class="instruction-card">
-                <div class="step">2</div>
-                <h4>Direkt loslegen</h4>
-                <p>Keine Buttons nötig - der Chat ist bereits geöffnet und bereit für Ihre Fragen.</p>
-            </div>
-
-            <div class="instruction-card">
-                <div class="step">3</div>
-                <h4>Testen & Feedback</h4>
-                <p>Stellen Sie Fragen und testen Sie alle Funktionen. Der Chat ist voll funktionsfähig!</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p>&copy; 2025 Visco Chatbot Demo • Entwickelt für Testzwecke</p>
+    <!-- Test Status -->
+    <div class="test-status">
+        <h2>🧪 STANDARD EMBEDDING TEST</h2>
+        <p>Verwende das originale Langflow-Embedding ohne Modifikationen</p>
     </div>
 
     <!-- Debug Info -->
     <div class="debug">
-        ✅ Chat oben links positioniert!<br>
-        <small>Einfache CSS-Methode</small>
+        <h4>🔍 Debug Information:</h4>
+        <div id="debug-content">
+            Lade Chat-Informationen...
+        </div>
     </div>
 
-    <!-- Chatbot Integration -->
+    <!-- Info Grid -->
+    <div class="info-grid">
+        <div class="info-card">
+            <h3>📋 Standard Embedding</h3>
+            <p>Verwendet das originale Langflow-Chat Element ohne Positionierungs-Hacks. Der Chat sollte standardmäßig oben links erscheinen.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>🎯 Erwartete Position</h3>
+            <p>Oben links im Viewport, direkt unter dem blauen Hinweis-Banner. Wenn er woanders erscheint, liegt es an Langflow-internen Styles.</p>
+        </div>
+
+        <div class="info-card">
+            <h3>🔧 Nächste Schritte</h3>
+            <p>Falls der Chat nicht oben links erscheint, können wir die Langflow-Attribute untersuchen oder alternative Embedding-Methoden verwenden.</p>
+        </div>
+    </div>
+
+    <!-- Standard Langflow Embedding -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
+    <langflow-chat
+        window_title="Visco"
+        flow_id="04342e71-2daa-4384-9792-b4d7765f6f9b"
+        host_url="https://langflowailangflowlatest-production-aec5.up.railway.app">
+    </langflow-chat>
+
     <script>
-        console.log('🚀 Einfache Chat-Positionierung: Oben Links');
+        console.log('🚀 Standard Langflow Embedding geladen');
         
-        // Zusätzliche Positionierungs-Sicherheit
-        function ensureChatPosition() {
+        // Debug-Informationen sammeln
+        function updateDebugInfo() {
+            const debugDiv = document.getElementById('debug-content');
             const langflowChat = document.querySelector('langflow-chat');
+            
             if (langflowChat) {
-                console.log('✅ Langflow-Chat gefunden, positioniere oben links');
+                const rect = langflowChat.getBoundingClientRect();
+                const computedStyle = window.getComputedStyle(langflowChat);
                 
-                langflowChat.style.position = 'fixed';
-                langflowChat.style.top = '20px';
-                langflowChat.style.left = '20px';
-                langflowChat.style.bottom = 'auto';
-                langflowChat.style.right = 'auto';
-                langflowChat.style.zIndex = '9999';
-                langflowChat.style.width = '400px';
-                langflowChat.style.maxWidth = 'calc(100vw - 40px)';
-                langflowChat.style.height = 'auto';
-                langflowChat.style.maxHeight = 'calc(100vh - 40px)';
-                
-                console.log('✅ Chat erfolgreich oben links positioniert');
+                debugDiv.innerHTML = `
+                    <strong>✅ Langflow-Chat gefunden!</strong><br>
+                    Position: ${rect.top.toFixed(0)}px top, ${rect.left.toFixed(0)}px left<br>
+                    Größe: ${rect.width.toFixed(0)}px × ${rect.height.toFixed(0)}px<br>
+                    CSS Position: ${computedStyle.position}<br>
+                    CSS Top: ${computedStyle.top}<br>
+                    CSS Left: ${computedStyle.left}<br>
+                    CSS Transform: ${computedStyle.transform}<br>
+                    Z-Index: ${computedStyle.zIndex}<br>
+                    <br>
+                    <strong>Verfügbare Attribute:</strong><br>
+                    ${Array.from(langflowChat.attributes).map(attr => 
+                        `${attr.name}="${attr.value}"`
+                    ).join('<br>')}
+                `;
             } else {
-                console.log('⏳ Warte auf Langflow-Chat...');
+                debugDiv.innerHTML = `
+                    <strong>⏳ Warte auf Langflow-Chat...</strong><br>
+                    Chat-Element noch nicht geladen.
+                `;
             }
         }
         
-        // Mehrfache Ausführung
-        setTimeout(ensureChatPosition, 500);
-        setTimeout(ensureChatPosition, 1500);
-        setTimeout(ensureChatPosition, 3000);
+        // Regelmäßige Updates
+        setInterval(updateDebugInfo, 1000);
+        updateDebugInfo();
         
-        // MutationObserver
-        const observer = new MutationObserver(() => {
-            ensureChatPosition();
+        // Event Listeners
+        window.addEventListener('load', () => {
+            setTimeout(updateDebugInfo, 2000);
+        });
+        
+        // MutationObserver für Chat-Erkennung
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    updateDebugInfo();
+                }
+            });
         });
         
         observer.observe(document.body, {
@@ -395,22 +279,7 @@
             subtree: true
         });
         
-        // Window events
-        window.addEventListener('load', () => {
-            setTimeout(ensureChatPosition, 1000);
-        });
-        
-        window.addEventListener('resize', () => {
-            ensureChatPosition();
-        });
-        
-        console.log('✅ Chat-Positionierungs-System gestartet (Oben Links)');
+        console.log('✅ Debug-System gestartet');
     </script>
-    
-    <langflow-chat
-        window_title="Visco"
-        flow_id="04342e71-2daa-4384-9792-b4d7765f6f9b"
-        host_url="https://langflowailangflowlatest-production-aec5.up.railway.app">
-    </langflow-chat>
 </body>
 </html>
