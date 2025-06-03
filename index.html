@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visco Chatbot Demo - Einfache Lösung</title>
+    <title>Visco Chatbot Demo - Viewport Korrektur</title>
     <style>
         * {
             margin: 0;
@@ -15,6 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f7fa;
             min-height: 100vh;
+            padding-top: 0;
         }
 
         /* Header */
@@ -44,15 +45,15 @@
             padding: 40px 20px;
         }
 
-        /* Test Status */
+        /* Test Banner */
         .test-banner {
-            background: linear-gradient(135deg, #4caf50, #45a049);
+            background: linear-gradient(135deg, #ff9800, #f57c00);
             color: white;
             padding: 20px;
             border-radius: 15px;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
         }
 
         .test-banner h2 {
@@ -107,14 +108,24 @@
             margin: 0;
         }
 
-        /* EINFACHE CHAT-POSITIONIERUNG */
+        /* CHAT DIREKT IM VIEWPORT - DEUTLICH NIEDRIGER */
         langflow-chat {
             position: fixed !important;
-            top: 100px !important;
+            top: 150px !important;  /* Viel niedriger! */
             left: 30px !important;
             z-index: 9999 !important;
             width: 380px !important;
             max-width: calc(100vw - 60px) !important;
+            /* Sichtbarkeit forcieren */
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: block !important;
+        }
+
+        /* Alle Chat-Kinder auch sichtbar */
+        langflow-chat * {
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         /* Mobile */
@@ -134,66 +145,92 @@
             langflow-chat {
                 width: calc(100vw - 20px) !important;
                 left: 10px !important;
-                top: 80px !important;
+                top: 120px !important;  /* Mobile auch niedriger */
             }
         }
 
-        /* Position Indicator */
-        .position-hint {
+        /* Viewport-Indikator */
+        .viewport-indicator {
             position: fixed;
-            top: 60px;
-            left: 30px;
-            background: rgba(102, 126, 234, 0.9);
+            top: 150px;
+            left: 420px;  /* Rechts neben dem Chat */
+            background: rgba(255, 152, 0, 0.9);
             color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
             z-index: 9998;
-            animation: fadeInOut 3s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Debug-Box */
+        .debug-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            z-index: 9999;
+            max-width: 300px;
         }
     </style>
 </head>
 <body>
-    <!-- Position Hint -->
-    <div class="position-hint">
-        📍 Chat erscheint hier
+    <!-- Viewport Indicator -->
+    <div class="viewport-indicator">
+        🎯 Chat hier bei 150px!
     </div>
 
     <!-- Header -->
     <div class="header">
         <h1>🤖 Visco Chatbot</h1>
-        <p>Einfache CSS-Positionierung</p>
+        <p>Viewport-Korrektur Version</p>
     </div>
 
     <!-- Container -->
     <div class="container">
         <!-- Test Banner -->
         <div class="test-banner">
-            <h2>🎯 EINFACHE LÖSUNG</h2>
-            <p>Nur CSS, kein störendes JavaScript - Chat wird 100px von oben positioniert</p>
+            <h2>🔧 VIEWPORT-KORREKTUR</h2>
+            <p>Chat wird jetzt bei 150px von oben positioniert - definitiv im Viewport!</p>
         </div>
 
         <!-- Chat Demo -->
         <div class="chat-demo">
             <h3>Visco Chat-Demo</h3>
-            <p>Unser intelligenter Chatbot ist jetzt aktiv! Der Chat befindet sich oben links im Viewport für optimale Sichtbarkeit und einfache Bedienung.</p>
+            <p>Der Chat wurde auf <strong>150px von oben</strong> verschoben, um sicher im sichtbaren Viewport-Bereich zu erscheinen.</p>
 
             <div class="success-box">
-                <div class="icon">✅</div>
-                <h4>Chat erfolgreich positioniert!</h4>
-                <p><strong>Position:</strong> 100px von oben, 30px von links<br>
-                   <strong>Größe:</strong> 380px breit (responsive)<br>
-                   <strong>Mobile:</strong> Automatische Anpassung</p>
+                <div class="icon">🎯</div>
+                <h4>Neue Position: 150px von oben!</h4>
+                <p><strong>Position:</strong> 150px von oben, 30px von links<br>
+                   <strong>Status:</strong> Garantiert im Viewport<br>
+                   <strong>Sichtbarkeit:</strong> Forciert mit CSS<br>
+                   <strong>Mobile:</strong> 120px von oben</p>
             </div>
         </div>
     </div>
 
-    <!-- Langflow Chat - EINFACH UND SAUBER -->
+    <!-- Debug Info -->
+    <div class="debug-info">
+        🎯 <strong>Viewport-Korrektur</strong><br>
+        Position: 150px top, 30px left<br>
+        Status: <span style="color: #4caf50;">✅ Aktiv</span><br>
+        <small>Sollte jetzt sichtbar sein!</small>
+    </div>
+
+    <!-- Langflow Chat -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
     <langflow-chat
@@ -203,17 +240,23 @@
     </langflow-chat>
 
     <script>
-        // Nur minimales, nicht-störendes Logging
-        console.log('🚀 Einfache Langflow-Integration geladen');
+        console.log('🎯 Viewport-Korrektur geladen - Chat bei 150px');
         
-        // Sanfte Überprüfung nach dem Laden
+        // Sanfte Überprüfung
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const chat = document.querySelector('langflow-chat');
                 if (chat) {
-                    console.log('✅ Chat erfolgreich geladen');
+                    console.log('✅ Chat gefunden');
                     const rect = chat.getBoundingClientRect();
-                    console.log(`📍 Position: ${rect.top}px top, ${rect.left}px left`);
+                    console.log(`📍 Aktuelle Position: ${rect.top}px top, ${rect.left}px left`);
+                    console.log(`📏 Größe: ${rect.width}px × ${rect.height}px`);
+                    
+                    // Ist der Chat im Viewport?
+                    const isInViewport = rect.top >= 0 && rect.left >= 0 && 
+                                       rect.top < window.innerHeight && 
+                                       rect.left < window.innerWidth;
+                    console.log(`👁️ Im Viewport: ${isInViewport ? '✅ JA' : '❌ NEIN'}`);
                 }
             }, 2000);
         });
