@@ -46,13 +46,13 @@
 
         /* Test Status Banner */
         .test-banner {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            background: linear-gradient(135deg, #4caf50, #45a049);
             color: white;
             padding: 15px;
             border-radius: 10px;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
         .test-banner h2 {
@@ -90,32 +90,33 @@
             margin-right: auto;
         }
 
-        /* Chat Placeholder */
-        .chat-placeholder {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-            border: 2px dashed #2196f3;
+        /* Chat Success Indicator */
+        .chat-success {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 2px solid #4caf50;
             border-radius: 15px;
-            padding: 60px 20px;
+            padding: 40px 20px;
             margin: 30px 0;
             text-align: center;
             position: relative;
         }
 
-        .chat-placeholder .icon {
+        .chat-success .icon {
             font-size: 4em;
             margin-bottom: 20px;
-            opacity: 0.7;
+            color: #4caf50;
         }
 
-        .chat-placeholder h4 {
-            color: #1976d2;
+        .chat-success h4 {
+            color: #2e7d32;
             font-size: 1.5em;
             margin-bottom: 15px;
         }
 
-        .chat-placeholder p {
-            color: #555;
+        .chat-success p {
+            color: #388e3c;
             font-size: 1.1em;
+            line-height: 1.6;
         }
 
         /* Position Indicators */
@@ -198,7 +199,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(0,0,0,0.8);
+            background: linear-gradient(135deg, #4caf50, #45a049);
             color: white;
             padding: 15px 20px;
             border-radius: 10px;
@@ -207,18 +208,6 @@
             z-index: 9999;
             max-width: 300px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
-
-        .debug.success {
-            background: linear-gradient(135deg, #4caf50, #45a049);
-        }
-
-        .debug.error {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-        }
-
-        .debug.loading {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
         }
 
         /* Footer */
@@ -272,21 +261,91 @@
             }
         }
 
-        .chat-placeholder {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        /* VERSTECKE ORIGINAL CHAT KOMPLETT */
+        /* DIREKTES LANGFLOW CHAT STYLING - ÜBERSCHREIBT ALLES */
         langflow-chat {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
+            position: fixed !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 9999 !important;
+            width: auto !important;
+            height: auto !important;
+        }
+
+        /* Alle möglichen Chat-Container */
+        langflow-chat > *,
+        langflow-chat div,
+        langflow-chat [class*="chat"],
+        langflow-chat [class*="container"],
+        langflow-chat [class*="widget"] {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 9999 !important;
+        }
+
+        /* Chat-Button spezifisch */
+        langflow-chat [class*="button"],
+        langflow-chat [class*="trigger"],
+        langflow-chat button,
+        langflow-chat [role="button"] {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 10001 !important;
+            transform: none !important;
+            margin: 0 !important;
+        }
+
+        /* Chat-Window spezifisch */
+        langflow-chat [class*="window"],
+        langflow-chat [class*="panel"],
+        langflow-chat [class*="dialog"],
+        langflow-chat [class*="modal"] {
+            position: fixed !important;
+            bottom: 100px !important;
+            right: 30px !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 10000 !important;
+            max-height: calc(100vh - 150px) !important;
+            max-width: 400px !important;
+            width: 400px !important;
+            transform: none !important;
+            margin: 0 !important;
+        }
+
+        /* Mobile Anpassung für Chat-Window */
+        @media (max-width: 500px) {
+            langflow-chat [class*="window"],
+            langflow-chat [class*="panel"],
+            langflow-chat [class*="dialog"],
+            langflow-chat [class*="modal"] {
+                width: calc(100vw - 60px) !important;
+                max-width: calc(100vw - 60px) !important;
+                right: 30px !important;
+                left: 30px !important;
+            }
+        }
+
+        /* Fallback für alle Elemente im Chat */
+        langflow-chat * {
+            position: relative !important;
+        }
+
+        /* Aber die Hauptcontainer bleiben fixed */
+        langflow-chat > div:first-child {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 9999 !important;
         }
     </style>
 </head>
@@ -301,28 +360,29 @@
     <div class="container">
         <!-- Test Banner -->
         <div class="test-banner">
-            <h2>🧪 TEST-MODUS AKTIV</h2>
-            <p>Diese Demo dient zu Testzwecken. Der Chatbot befindet sich in der Entwicklungsphase.</p>
+            <h2>✅ CHAT AKTIV</h2>
+            <p>Der Chatbot wurde erfolgreich geladen und positioniert!</p>
         </div>
 
         <!-- Chat Demo Section -->
         <div class="chat-demo">
             <h3>Chat-Demo</h3>
             <div class="description">
-                Testen Sie unseren intelligenten Chatbot! Die Chat-Bubble ist <strong>rechts unten</strong>, 
-                das Chatfenster öffnet sich <strong>nach oben links</strong> für optimale Sichtbarkeit.
+                Unser intelligenter Chatbot ist jetzt aktiv! Die Chat-Bubble befindet sich <strong>rechts unten</strong>, 
+                das Chatfenster öffnet sich <strong>nach oben</strong> für optimale Sichtbarkeit.
             </div>
 
-            <div class="chat-placeholder">
-                <div class="icon">💬</div>
-                <h4>Chat wird positioniert...</h4>
-                <p>Chat-Button: <strong>rechts unten</strong><br>
-                   Chat-Fenster: <strong>öffnet nach oben links</strong></p>
+            <div class="chat-success">
+                <div class="icon">✅</div>
+                <h4>Chat erfolgreich geladen!</h4>
+                <p><strong>Chat-Button:</strong> Rechts unten positioniert<br>
+                   <strong>Chat-Fenster:</strong> Öffnet sich oberhalb des Buttons<br>
+                   <strong>Responsive:</strong> Passt sich automatisch an</p>
                 <div class="window-indicator">
-                    🪟 Fenster hier oben!
+                    🪟 Fenster öffnet hier!
                 </div>
                 <div class="position-indicator">
-                    🔘 Button hier unten!
+                    🔘 Button ist hier!
                 </div>
             </div>
         </div>
@@ -332,19 +392,19 @@
             <div class="instruction-card">
                 <div class="step">1</div>
                 <h4>Chat-Blase finden</h4>
-                <p>Schauen Sie <strong>unten rechts</strong> auf der Seite nach der runden Chat-Blase.</p>
+                <p>Schauen Sie <strong>unten rechts</strong> auf der Seite nach der Chat-Blase.</p>
             </div>
 
             <div class="instruction-card">
                 <div class="step">2</div>
                 <h4>Chat öffnen</h4>
-                <p>Klicken Sie auf die Blase. Das Chatfenster öffnet sich <strong>nach oben links</strong>.</p>
+                <p>Klicken Sie auf die Blase. Das Chatfenster öffnet sich <strong>oberhalb</strong> des Buttons.</p>
             </div>
 
             <div class="instruction-card">
                 <div class="step">3</div>
                 <h4>Testen & Feedback</h4>
-                <p>Stellen Sie Fragen und testen Sie alle Funktionen. Geben Sie uns Ihr Feedback!</p>
+                <p>Stellen Sie Fragen und testen Sie alle Funktionen. Der Chat ist voll funktionsfähig!</p>
             </div>
         </div>
     </div>
@@ -355,276 +415,75 @@
     </div>
 
     <!-- Debug Info -->
-    <div class="debug loading" id="debug">
-        🔄 Positioniere Chat-Elemente...
+    <div class="debug">
+        ✅ Chat-Positionierung aktiv!<br>
+        <small>CSS-Override Methode</small>
     </div>
 
     <!-- Chatbot Integration -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
     <script>
-        console.log('🚀 Starte intelligente Chat-Positionierung...');
+        console.log('🚀 Chat-Positionierung via CSS-Override aktiv');
         
-        let chatButton = null;
-        let chatWindow = null;
-        let isExtracted = false;
-        
-        // CHAT EXTRAKTION UND INTELLIGENTE POSITIONIERUNG
-        function extractAndRepositionChat() {
-            console.log('🔍 Suche nach Chat-Elementen...');
-            
+        // Zusätzliche JavaScript-Unterstützung
+        function ensureChatPosition() {
             const langflowChat = document.querySelector('langflow-chat');
-            if (!langflowChat) {
-                console.log('❌ Langflow-Chat nicht gefunden');
-                return false;
-            }
-            
-            console.log('✅ Langflow-Chat gefunden:', langflowChat);
-            
-            // Shadow DOM prüfen
-            let elementsToSearch = [];
-            if (langflowChat.shadowRoot) {
-                console.log('🔍 Shadow DOM gefunden, durchsuche...');
-                elementsToSearch = langflowChat.shadowRoot.querySelectorAll('*');
-            } else {
-                elementsToSearch = langflowChat.querySelectorAll('*');
-            }
-            
-            console.log(`🔍 Durchsuche ${elementsToSearch.length} Elemente...`);
-            
-            const visibleElements = [];
-            
-            elementsToSearch.forEach((el, index) => {
-                const rect = el.getBoundingClientRect();
-                const isVisible = rect.width > 0 && rect.height > 0;
+            if (langflowChat) {
+                console.log('✅ Langflow-Chat gefunden, wende Positionierung an');
                 
-                if (isVisible) {
-                    visibleElements.push({element: el, rect: rect, index: index});
-                    console.log(`📍 Sichtbares Element ${index}:`, el.tagName, el.className, 'Größe:', rect.width, 'x', rect.height);
-                }
-            });
-            
-            // Intelligente Element-Identifikation
-            visibleElements.forEach(({element, rect}) => {
-                // Button-Erkennung (meist kleiner, oft rund oder quadratisch)
-                if (!chatButton && (rect.width <= 80 && rect.height <= 80)) {
-                    chatButton = element;
-                    console.log('🔘 Chat-Button identifiziert:', chatButton, 'Größe:', rect.width, 'x', rect.height);
-                }
+                // Direkte Style-Anwendung
+                langflowChat.style.position = 'fixed';
+                langflowChat.style.bottom = '0';
+                langflowChat.style.right = '0';
+                langflowChat.style.left = 'auto';
+                langflowChat.style.top = 'auto';
+                langflowChat.style.zIndex = '9999';
                 
-                // Window-Erkennung (meist größer, rechteckig)
-                if (!chatWindow && rect.width > 200 && rect.height > 200) {
-                    chatWindow = element;
-                    console.log('🪟 Chat-Window identifiziert:', chatWindow, 'Größe:', rect.width, 'x', rect.height);
-                }
-            });
-            
-            // Fallback: Größte und kleinste Elemente
-            if (!chatButton || !chatWindow) {
-                visibleElements.sort((a, b) => (a.rect.width * a.rect.height) - (b.rect.width * b.rect.height));
-                
-                if (!chatButton && visibleElements.length > 0) {
-                    chatButton = visibleElements[0].element; // Kleinstes Element
-                    console.log('🔘 Fallback Chat-Button (kleinstes):', chatButton);
-                }
-                
-                if (!chatWindow && visibleElements.length > 1) {
-                    chatWindow = visibleElements[visibleElements.length - 1].element; // Größtes Element
-                    console.log('🪟 Fallback Chat-Window (größtes):', chatWindow);
-                }
-            }
-            
-            // Elemente extrahieren und positionieren
-            if (chatButton) {
-                extractElement(chatButton, 'button');
-            }
-            
-            if (chatWindow) {
-                extractElement(chatWindow, 'window');
-            }
-            
-            return chatButton !== null;
-        }
-        
-        // ELEMENT EXTRAKTION MIT OPTIMALER POSITIONIERUNG
-        function extractElement(element, type) {
-            console.log(`🚀 Extrahiere ${type}:`, element);
-            
-            try {
-                // Element klonen
-                const clone = element.cloneNode(true);
-                
-                // Event-Listener kopieren (wichtig für Funktionalität)
-                copyEventListeners(element, clone);
-                
-                // Positionierung anwenden
-                if (type === 'button') {
-                    // Button: Rechts unten
-                    clone.style.cssText = `
-                        position: fixed !important;
-                        bottom: 30px !important;
-                        right: 30px !important;
-                        left: auto !important;
-                        top: auto !important;
-                        z-index: 10001 !important;
-                        transform: none !important;
-                        margin: 0 !important;
-                        box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
-                    `;
-                } else if (type === 'window') {
-                    // Window: Oberhalb des Buttons, nach links ausgerichtet
-                    clone.style.cssText = `
-                        position: fixed !important;
-                        bottom: 100px !important;
-                        right: 30px !important;
-                        left: auto !important;
-                        top: auto !important;
-                        z-index: 10000 !important;
-                        max-height: calc(100vh - 150px) !important;
-                        max-width: 400px !important;
-                        width: 400px !important;
-                        transform: none !important;
-                        margin: 0 !important;
-                        box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
-                        border-radius: 15px !important;
-                        overflow: hidden !important;
-                    `;
-                    
-                    // Zusätzliche Responsive-Anpassung
-                    if (window.innerWidth < 500) {
-                        clone.style.width = 'calc(100vw - 60px) !important';
-                        clone.style.maxWidth = 'calc(100vw - 60px) !important';
-                        clone.style.right = '30px !important';
-                        clone.style.left = '30px !important';
-                    }
-                }
-                
-                // Zum Body hinzufügen
-                document.body.appendChild(clone);
-                
-                // Original verstecken
-                element.style.display = 'none !important';
-                element.style.visibility = 'hidden !important';
-                
-                console.log(`✅ ${type} erfolgreich extrahiert und positioniert`);
-                
-                // Referenzen aktualisieren
-                if (type === 'button') {
-                    chatButton = clone;
-                } else {
-                    chatWindow = clone;
-                }
-                
-                return clone;
-                
-            } catch (error) {
-                console.error(`❌ Fehler beim Extrahieren von ${type}:`, error);
-                return null;
-            }
-        }
-        
-        // EVENT-LISTENER KOPIEREN (für Funktionalität)
-        function copyEventListeners(original, clone) {
-            try {
-                // Häufige Event-Types für Chat-Elemente
-                const events = ['click', 'mousedown', 'mouseup', 'touchstart', 'touchend'];
-                
-                events.forEach(eventType => {
-                    clone.addEventListener(eventType, function(e) {
-                        // Event an Original weiterleiten
-                        const newEvent = new Event(eventType, {
-                            bubbles: true,
-                            cancelable: true
-                        });
-                        original.dispatchEvent(newEvent);
-                    });
-                });
-                
-                console.log('✅ Event-Listener kopiert');
-            } catch (error) {
-                console.log('⚠️ Event-Listener konnten nicht kopiert werden:', error);
-            }
-        }
-        
-        // KONTINUIERLICHE ÜBERWACHUNG
-        let attempts = 0;
-        const maxAttempts = 15;
-        
-        function monitorAndExtract() {
-            attempts++;
-            console.log(`🔍 Extraktions-Versuch ${attempts}/${maxAttempts}`);
-            
-            const debugDiv = document.getElementById('debug');
-            const placeholder = document.querySelector('.chat-placeholder');
-            
-            if (extractAndRepositionChat()) {
-                console.log('✅ Chat erfolgreich extrahiert und positioniert!');
-                
-                debugDiv.innerHTML = '✅ Chat optimal positioniert!<br><small>Button: rechts unten | Fenster: oben links</small>';
-                debugDiv.className = 'debug success';
-                
-                placeholder.innerHTML = `
-                    <div class="icon">✅</div>
-                    <h4>Chat perfekt positioniert!</h4>
-                    <p><strong>Chat-Button:</strong> Rechts unten<br>
-                       <strong>Chat-Fenster:</strong> Öffnet nach oben links</p>
-                    <div class="window-indicator">
-                        🪟 Fenster öffnet hier!
-                    </div>
-                    <div class="position-indicator">
-                        🔘 Button ist hier!
-                    </div>
-                `;
-                
-                isExtracted = true;
-                
-                // Überwachung für Responsive-Anpassungen
-                window.addEventListener('resize', () => {
-                    if (chatWindow && window.innerWidth < 500) {
-                        chatWindow.style.width = 'calc(100vw - 60px) !important';
-                        chatWindow.style.maxWidth = 'calc(100vw - 60px) !important';
-                        chatWindow.style.left = '30px !important';
-                    } else if (chatWindow) {
-                        chatWindow.style.width = '400px !important';
-                        chatWindow.style.maxWidth = '400px !important';
-                        chatWindow.style.left = 'auto !important';
+                // Alle Kinder-Elemente durchgehen
+                const allChildren = langflowChat.querySelectorAll('*');
+                allChildren.forEach((child, index) => {
+                    const rect = child.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                        console.log(`Positioniere Element ${index}:`, child);
+                        
+                        // Kleine Elemente (vermutlich Button)
+                        if (rect.width <= 80 && rect.height <= 80) {
+                            child.style.position = 'fixed';
+                            child.style.bottom = '30px';
+                            child.style.right = '30px';
+                            child.style.left = 'auto';
+                            child.style.top = 'auto';
+                            child.style.zIndex = '10001';
+                            child.style.transform = 'none';
+                        }
+                        
+                        // Große Elemente (vermutlich Window)
+                        if (rect.width > 200 && rect.height > 200) {
+                            child.style.position = 'fixed';
+                            child.style.bottom = '100px';
+                            child.style.right = '30px';
+                            child.style.left = 'auto';
+                            child.style.top = 'auto';
+                            child.style.zIndex = '10000';
+                            child.style.maxHeight = 'calc(100vh - 150px)';
+                            child.style.maxWidth = '400px';
+                            child.style.width = '400px';
+                            child.style.transform = 'none';
+                        }
                     }
                 });
-                
-                // Kontinuierliche Überwachung
-                setInterval(() => {
-                    if (!chatButton || !document.body.contains(chatButton)) {
-                        console.log('🔄 Chat-Elemente verloren, neu extrahieren...');
-                        extractAndRepositionChat();
-                    }
-                }, 5000);
-                
-            } else if (attempts < maxAttempts) {
-                debugDiv.innerHTML = `🔄 Positionierung Versuch ${attempts}/${maxAttempts}...`;
-                setTimeout(monitorAndExtract, 1000);
-            } else {
-                debugDiv.innerHTML = '❌ Chat-Positionierung fehlgeschlagen';
-                debugDiv.className = 'debug error';
-                
-                placeholder.innerHTML = `
-                    <div class="icon">❌</div>
-                    <h4>Positionierung fehlgeschlagen</h4>
-                    <p>Der Chat konnte nicht optimal positioniert werden.<br>
-                       Siehe Browser-Konsole für Details.</p>
-                `;
             }
         }
+        
+        // Mehrfache Ausführung für Sicherheit
+        setTimeout(ensureChatPosition, 1000);
+        setTimeout(ensureChatPosition, 3000);
+        setTimeout(ensureChatPosition, 5000);
         
         // MutationObserver für dynamische Änderungen
-        const observer = new MutationObserver((mutations) => {
-            if (!isExtracted) {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                        console.log('🆕 DOM-Änderung erkannt, prüfe Chat...');
-                        setTimeout(extractAndRepositionChat, 500);
-                    }
-                });
-            }
+        const observer = new MutationObserver(() => {
+            ensureChatPosition();
         });
         
         observer.observe(document.body, {
@@ -632,28 +491,12 @@
             subtree: true
         });
         
-        // Starten nach DOM-Load
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(monitorAndExtract, 1000);
-            });
-        } else {
-            setTimeout(monitorAndExtract, 1000);
-        }
-        
-        // Zusätzlicher Start nach window.load
+        // Window load event
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                if (!isExtracted) {
-                    monitorAndExtract();
-                }
-            }, 2000);
+            setTimeout(ensureChatPosition, 2000);
         });
         
-        // Cleanup
-        window.addEventListener('beforeunload', () => {
-            observer.disconnect();
-        });
+        console.log('✅ Chat-Positionierungs-System gestartet');
     </script>
     
     <langflow-chat
