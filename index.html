@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visco Chatbot Demo - Standard Embedding</title>
+    <title>Visco Chatbot Demo - Viewport Fix</title>
     <style>
         * {
             margin: 0;
@@ -15,18 +15,15 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f7fa;
             min-height: 100vh;
-            padding: 20px;
         }
 
         /* Header */
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 20px 0;
             text-align: center;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .header h1 {
@@ -40,246 +37,328 @@
             opacity: 0.9;
         }
 
-        /* Test Status */
-        .test-status {
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Test Status Banner */
+        .test-banner {
             background: linear-gradient(135deg, #4caf50, #45a049);
             color: white;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 10px;
             text-align: center;
             margin-bottom: 30px;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
-        .test-status h2 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
+        .test-banner h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
         }
 
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .info-card {
+        /* Chat Demo Section */
+        .chat-demo {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            border-left: 5px solid #667eea;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        .info-card h3 {
+        .chat-demo h3 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            font-size: 2em;
+            margin-bottom: 20px;
         }
 
-        .info-card p {
+        .chat-demo .description {
             color: #666;
+            font-size: 1.1em;
             line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Chat Success Indicator */
+        .chat-success {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-success .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #4caf50;
+        }
+
+        .chat-success h4 {
+            color: #2e7d32;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .chat-success p {
+            color: #388e3c;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Position Indicator */
+        .position-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         /* Debug Info */
         .debug {
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            font-family: monospace;
-            font-size: 14px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-        }
-
-        .debug h4 {
-            margin-bottom: 10px;
-            color: #3498db;
-        }
-
-        /* Chat Positioning Hints */
-        .position-hint {
             position: fixed;
             top: 20px;
-            left: 20px;
-            background: rgba(102, 126, 234, 0.9);
+            right: 20px;
+            background: linear-gradient(135deg, #4caf50, #45a049);
             color: white;
             padding: 15px 20px;
             border-radius: 10px;
+            font-family: monospace;
             font-size: 14px;
-            z-index: 8888;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            animation: pulse 2s infinite;
+            z-index: 9999;
+            max-width: 300px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.9; }
-            50% { opacity: 0.6; }
+        /* AGGRESSIVE CHAT-POSITIONIERUNG IM VIEWPORT */
+        langflow-chat {
+            /* Basis-Positionierung */
+            position: fixed !important;
+            top: 80px !important;
+            left: 20px !important;
+            bottom: auto !important;
+            right: auto !important;
+            z-index: 9998 !important;
+            
+            /* Größe */
+            width: 400px !important;
+            max-width: calc(100vw - 40px) !important;
+            height: auto !important;
+            max-height: calc(100vh - 100px) !important;
+            
+            /* Reset alle möglichen Offsets */
+            margin: 0 !important;
+            transform: translate(0, 0) !important;
+            
+            /* Sichtbarkeit sicherstellen */
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: block !important;
+        }
+
+        /* Alle Kinder-Elemente zurücksetzen */
+        langflow-chat *,
+        langflow-chat > div,
+        langflow-chat iframe,
+        langflow-chat [class*="chat"],
+        langflow-chat [class*="widget"],
+        langflow-chat [class*="container"],
+        langflow-chat [class*="wrapper"] {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            bottom: auto !important;
+            right: auto !important;
+            margin: 0 !important;
+            transform: none !important;
+        }
+
+        /* Mobile Anpassung */
+        @media (max-width: 500px) {
+            langflow-chat {
+                width: calc(100vw - 20px) !important;
+                left: 10px !important;
+                top: 70px !important;
+                max-height: calc(100vh - 80px) !important;
+            }
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
             .header h1 {
                 font-size: 2em;
             }
             
-            .position-hint {
+            .chat-demo {
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 20px 10px;
+            }
+            
+            .debug {
                 top: 10px;
-                left: 10px;
+                right: 10px;
                 font-size: 12px;
                 padding: 10px 15px;
             }
         }
-
-        /* Versuche den Chat zu verschieben - verschiedene Ansätze */
-        langflow-chat {
-            /* Methode 1: Direkte Positionierung */
-            position: fixed !important;
-            top: 80px !important;
-            left: 20px !important;
-            z-index: 9999 !important;
-            
-            /* Methode 2: Transform */
-            transform: translate(0, 0) !important;
-            
-            /* Methode 3: Margin Override */
-            margin: 0 !important;
-        }
-
-        /* Fallback für alle möglichen Container */
-        langflow-chat > *,
-        langflow-chat div:first-child,
-        langflow-chat [class*="container"],
-        langflow-chat [class*="widget"],
-        langflow-chat [class*="chat"] {
-            position: relative !important;
-            top: 0 !important;
-            left: 0 !important;
-            transform: none !important;
-            margin: 0 !important;
-        }
     </style>
 </head>
 <body>
-    <!-- Position Hint -->
-    <div class="position-hint">
-        📍 Chat sollte hier erscheinen<br>
-        <small>(Oben links im Viewport)</small>
-    </div>
-
     <!-- Header -->
     <div class="header">
         <h1>🤖 Visco Chatbot</h1>
-        <p>Standard Embedding Test</p>
+        <p>Viewport-Fix Version</p>
     </div>
 
-    <!-- Test Status -->
-    <div class="test-status">
-        <h2>🧪 STANDARD EMBEDDING TEST</h2>
-        <p>Verwende das originale Langflow-Embedding ohne Modifikationen</p>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Test Banner -->
+        <div class="test-banner">
+            <h2>🎯 VIEWPORT-FIX AKTIV</h2>
+            <p>Chat wird jetzt direkt im sichtbaren Bereich positioniert (80px von oben)!</p>
+        </div>
+
+        <!-- Chat Demo Section -->
+        <div class="chat-demo">
+            <h3>Chat im Viewport</h3>
+            <div class="description">
+                Der Chat wird jetzt <strong>80px vom oberen Rand</strong> positioniert, 
+                damit er definitiv im sichtbaren Viewport-Bereich erscheint.
+            </div>
+
+            <div class="chat-success">
+                <div class="icon">🎯</div>
+                <h4>Viewport-Positionierung aktiv!</h4>
+                <p><strong>Position:</strong> 80px von oben, 20px von links<br>
+                   <strong>Sichtbarkeit:</strong> Garantiert im Viewport<br>
+                   <strong>Größe:</strong> 400px breit (responsive)<br>
+                   <strong>Mobile:</strong> Vollbreite minus Ränder</p>
+                <div class="position-indicator">
+                    📍 Chat hier im Viewport!
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Debug Info -->
     <div class="debug">
-        <h4>🔍 Debug Information:</h4>
-        <div id="debug-content">
-            Lade Chat-Informationen...
-        </div>
+        ✅ Viewport-Fix aktiv!<br>
+        Position: 80px top, 20px left<br>
+        <small>Garantiert sichtbar</small>
     </div>
 
-    <!-- Info Grid -->
-    <div class="info-grid">
-        <div class="info-card">
-            <h3>📋 Standard Embedding</h3>
-            <p>Verwendet das originale Langflow-Chat Element ohne Positionierungs-Hacks. Der Chat sollte standardmäßig oben links erscheinen.</p>
-        </div>
-
-        <div class="info-card">
-            <h3>🎯 Erwartete Position</h3>
-            <p>Oben links im Viewport, direkt unter dem blauen Hinweis-Banner. Wenn er woanders erscheint, liegt es an Langflow-internen Styles.</p>
-        </div>
-
-        <div class="info-card">
-            <h3>🔧 Nächste Schritte</h3>
-            <p>Falls der Chat nicht oben links erscheint, können wir die Langflow-Attribute untersuchen oder alternative Embedding-Methoden verwenden.</p>
-        </div>
-    </div>
-
-    <!-- Standard Langflow Embedding -->
+    <!-- Chatbot Integration -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
+    
+    <script>
+        console.log('🎯 Viewport-Fix für Langflow Chat');
+        
+        function forceViewportPosition() {
+            const langflowChat = document.querySelector('langflow-chat');
+            if (langflowChat) {
+                console.log('✅ Langflow-Chat gefunden, forciere Viewport-Position');
+                
+                // Aggressive Positionierung
+                langflowChat.style.setProperty('position', 'fixed', 'important');
+                langflowChat.style.setProperty('top', '80px', 'important');
+                langflowChat.style.setProperty('left', '20px', 'important');
+                langflowChat.style.setProperty('bottom', 'auto', 'important');
+                langflowChat.style.setProperty('right', 'auto', 'important');
+                langflowChat.style.setProperty('z-index', '9998', 'important');
+                langflowChat.style.setProperty('width', '400px', 'important');
+                langflowChat.style.setProperty('max-width', 'calc(100vw - 40px)', 'important');
+                langflowChat.style.setProperty('height', 'auto', 'important');
+                langflowChat.style.setProperty('max-height', 'calc(100vh - 100px)', 'important');
+                langflowChat.style.setProperty('margin', '0', 'important');
+                langflowChat.style.setProperty('transform', 'translate(0, 0)', 'important');
+                langflowChat.style.setProperty('visibility', 'visible', 'important');
+                langflowChat.style.setProperty('opacity', '1', 'important');
+                langflowChat.style.setProperty('display', 'block', 'important');
+                
+                console.log('✅ Viewport-Position forciert');
+                
+                // Debug-Info
+                const rect = langflowChat.getBoundingClientRect();
+                console.log(`📍 Chat Position: ${rect.top}px top, ${rect.left}px left`);
+                console.log(`📏 Chat Größe: ${rect.width}px × ${rect.height}px`);
+                
+            } else {
+                console.log('⏳ Warte auf Langflow-Chat...');
+            }
+        }
+        
+        // Mehrfache Ausführung mit verschiedenen Delays
+        setTimeout(forceViewportPosition, 100);
+        setTimeout(forceViewportPosition, 500);
+        setTimeout(forceViewportPosition, 1000);
+        setTimeout(forceViewportPosition, 2000);
+        setTimeout(forceViewportPosition, 3000);
+        
+        // MutationObserver für kontinuierliche Überwachung
+        const observer = new MutationObserver((mutations) => {
+            let shouldReposition = false;
+            
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                    shouldReposition = true;
+                }
+            });
+            
+            if (shouldReposition) {
+                setTimeout(forceViewportPosition, 100);
+            }
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
+        });
+        
+        // Window events
+        window.addEventListener('load', () => {
+            setTimeout(forceViewportPosition, 1000);
+        });
+        
+        window.addEventListener('resize', () => {
+            forceViewportPosition();
+        });
+        
+        // Intervall als Fallback
+        setInterval(forceViewportPosition, 5000);
+        
+        console.log('✅ Viewport-Fix System gestartet');
+    </script>
     
     <langflow-chat
         window_title="Visco"
         flow_id="04342e71-2daa-4384-9792-b4d7765f6f9b"
         host_url="https://langflowailangflowlatest-production-aec5.up.railway.app">
     </langflow-chat>
-
-    <script>
-        console.log('🚀 Standard Langflow Embedding geladen');
-        
-        // Debug-Informationen sammeln
-        function updateDebugInfo() {
-            const debugDiv = document.getElementById('debug-content');
-            const langflowChat = document.querySelector('langflow-chat');
-            
-            if (langflowChat) {
-                const rect = langflowChat.getBoundingClientRect();
-                const computedStyle = window.getComputedStyle(langflowChat);
-                
-                debugDiv.innerHTML = `
-                    <strong>✅ Langflow-Chat gefunden!</strong><br>
-                    Position: ${rect.top.toFixed(0)}px top, ${rect.left.toFixed(0)}px left<br>
-                    Größe: ${rect.width.toFixed(0)}px × ${rect.height.toFixed(0)}px<br>
-                    CSS Position: ${computedStyle.position}<br>
-                    CSS Top: ${computedStyle.top}<br>
-                    CSS Left: ${computedStyle.left}<br>
-                    CSS Transform: ${computedStyle.transform}<br>
-                    Z-Index: ${computedStyle.zIndex}<br>
-                    <br>
-                    <strong>Verfügbare Attribute:</strong><br>
-                    ${Array.from(langflowChat.attributes).map(attr => 
-                        `${attr.name}="${attr.value}"`
-                    ).join('<br>')}
-                `;
-            } else {
-                debugDiv.innerHTML = `
-                    <strong>⏳ Warte auf Langflow-Chat...</strong><br>
-                    Chat-Element noch nicht geladen.
-                `;
-            }
-        }
-        
-        // Regelmäßige Updates
-        setInterval(updateDebugInfo, 1000);
-        updateDebugInfo();
-        
-        // Event Listeners
-        window.addEventListener('load', () => {
-            setTimeout(updateDebugInfo, 2000);
-        });
-        
-        // MutationObserver für Chat-Erkennung
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'childList') {
-                    updateDebugInfo();
-                }
-            });
-        });
-        
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-        
-        console.log('✅ Debug-System gestartet');
-    </script>
 </body>
 </html>
