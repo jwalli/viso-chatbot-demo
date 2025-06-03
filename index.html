@@ -3,41 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karriere.Haus Chat</title>
+    <title>Visco Chat</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        .loading {
+        .debug {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
+            top: 10px;
+            left: 10px;
+            background: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 9999;
         }
     </style>
 </head>
 <body>
-    <div class="loading" id="loading">
-        <p>Chat wird geladen...</p>
+    <div class="debug" id="debug">
+        Lade Chat-Komponente...
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
     <script>
-        // Warten bis das Script geladen ist
-        window.addEventListener('load', function() {
-            document.getElementById('loading').style.display = 'none';
-        });
+        // Debug-Informationen
+        console.log('Script geladen');
+        
+        // Prüfen ob langflow-chat Element existiert
+        setTimeout(() => {
+            const chatElement = document.querySelector('langflow-chat');
+            const debugDiv = document.getElementById('debug');
+            
+            if (chatElement) {
+                debugDiv.innerHTML = 'Chat-Element gefunden ✓';
+                console.log('Chat-Element gefunden:', chatElement);
+            } else {
+                debugDiv.innerHTML = 'Chat-Element NICHT gefunden ✗';
+                console.log('Chat-Element nicht gefunden');
+            }
+        }, 2000);
     </script>
     
     <langflow-chat
-        window_title="Karriere.Haus-Chat-Bot"
-        flow_id="8da3f21e-4698-422e-a70a-7a9ad418da0d"
-        host_url="https://langflowailangflowlatest-production-aec5.up.railway.app"
-        api_key="...">
+        window_title="Visco"
+        flow_id="04342e71-2daa-4384-9792-b4d7765f6f9b"
+        host_url="https://langflowailangflowlatest-production-aec5.up.railway.app">
     </langflow-chat>
 </body>
 </html>
