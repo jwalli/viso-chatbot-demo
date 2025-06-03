@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visco Chatbot Demo - Viewport Korrektur</title>
+    <title>Viso360 Chatbot Test</title>
     <style>
         * {
             margin: 0;
@@ -13,253 +13,269 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
+            background: #f8f9fa;
             min-height: 100vh;
-            padding-top: 0;
+            line-height: 1.6;
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: white;
-            padding: 20px 0;
+            padding: 30px 0;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 2.8em;
+            margin-bottom: 15px;
             font-weight: 300;
         }
 
         .header p {
-            font-size: 1.2em;
+            font-size: 1.3em;
             opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
-        /* Test Banner */
-        .test-banner {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-        }
-
-        .test-banner h2 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
-
-        /* Chat Demo */
-        .chat-demo {
+        /* Hero Section */
+        .hero {
             background: white;
             border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             text-align: center;
+            margin-bottom: 40px;
         }
 
-        .chat-demo h3 {
-            color: #333;
-            font-size: 2em;
+        .hero h2 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            color: #555;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        /* Test Section */
+        .test-section {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .test-section h3 {
+            font-size: 2.2em;
             margin-bottom: 20px;
         }
 
-        .chat-demo p {
-            color: #666;
+        .test-section p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .about h3 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .about p {
+            color: #555;
             font-size: 1.1em;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .success-box {
-            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
-            border: 2px solid #4caf50;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
         }
 
-        .success-box .icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-            color: #4caf50;
+        .footer p {
+            opacity: 0.8;
         }
 
-        .success-box h4 {
-            color: #2e7d32;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-
-        .success-box p {
-            color: #388e3c;
-            margin: 0;
-        }
-
-        /* CHAT DIREKT IM VIEWPORT - DEUTLICH NIEDRIGER */
+        /* Chat Positionierung */
         langflow-chat {
             position: fixed !important;
-            top: 150px !important;  /* Viel niedriger! */
+            top: 100px !important;
             left: 30px !important;
             z-index: 9999 !important;
             width: 380px !important;
             max-width: calc(100vw - 60px) !important;
-            /* Sichtbarkeit forcieren */
-            visibility: visible !important;
-            opacity: 1 !important;
-            display: block !important;
         }
 
-        /* Alle Chat-Kinder auch sichtbar */
-        langflow-chat * {
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-
-        /* Mobile */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .hero {
+                padding: 30px 20px;
+            }
+            
+            .hero h2 {
                 font-size: 2em;
             }
             
             .container {
-                padding: 20px 10px;
+                padding: 30px 15px;
             }
             
-            .chat-demo {
-                padding: 20px;
+            .about {
+                padding: 30px 20px;
             }
             
             langflow-chat {
                 width: calc(100vw - 20px) !important;
                 left: 10px !important;
-                top: 120px !important;  /* Mobile auch niedriger */
+                top: 80px !important;
             }
-        }
-
-        /* Viewport-Indikator */
-        .viewport-indicator {
-            position: fixed;
-            top: 150px;
-            left: 420px;  /* Rechts neben dem Chat */
-            background: rgba(255, 152, 0, 0.9);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            z-index: 9998;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-
-        /* Debug-Box */
-        .debug-info {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            font-family: monospace;
-            font-size: 14px;
-            z-index: 9999;
-            max-width: 300px;
         }
     </style>
 </head>
 <body>
-    <!-- Viewport Indicator -->
-    <div class="viewport-indicator">
-        🎯 Chat hier bei 150px!
-    </div>
-
     <!-- Header -->
     <div class="header">
-        <h1>🤖 Visco Chatbot</h1>
-        <p>Viewport-Korrektur Version</p>
+        <h1>🤖 Viso360 Chatbot Test</h1>
+        <p>Testen Sie unseren intelligenten Kundenservice-Assistenten</p>
     </div>
 
     <!-- Container -->
     <div class="container">
-        <!-- Test Banner -->
-        <div class="test-banner">
-            <h2>🔧 VIEWPORT-KORREKTUR</h2>
-            <p>Chat wird jetzt bei 150px von oben positioniert - definitiv im Viewport!</p>
+        <!-- Hero Section -->
+        <div class="hero">
+            <h2>Willkommen zum Chatbot-Test</h2>
+            <p>Erleben Sie die Zukunft des Kundenservice mit unserem KI-gestützten Chatbot. Stellen Sie Fragen, erhalten Sie sofortige Antworten und entdecken Sie, wie künstliche Intelligenz Ihren Service revolutionieren kann.</p>
         </div>
 
-        <!-- Chat Demo -->
-        <div class="chat-demo">
-            <h3>Visco Chat-Demo</h3>
-            <p>Der Chat wurde auf <strong>150px von oben</strong> verschoben, um sicher im sichtbaren Viewport-Bereich zu erscheinen.</p>
+        <!-- Test Section -->
+        <div class="test-section">
+            <h3>🚀 Live-Test verfügbar</h3>
+            <p>Der Chatbot ist jetzt aktiv! Klicken Sie auf das Chat-Symbol links oben und testen Sie unsere KI-Technologie in Echtzeit. Stellen Sie beliebige Fragen zu unseren Services.</p>
+        </div>
 
-            <div class="success-box">
-                <div class="icon">🎯</div>
-                <h4>Neue Position: 150px von oben!</h4>
-                <p><strong>Position:</strong> 150px von oben, 30px von links<br>
-                   <strong>Status:</strong> Garantiert im Viewport<br>
-                   <strong>Sichtbarkeit:</strong> Forciert mit CSS<br>
-                   <strong>Mobile:</strong> 120px von oben</p>
+        <!-- Features Grid -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h3>Sofortige Antworten</h3>
+                <p>Erhalten Sie blitzschnelle Antworten auf Ihre Fragen - 24/7 verfügbar ohne Wartezeiten.</p>
             </div>
+            
+            <div class="feature-card">
+                <div class="icon">🧠</div>
+                <h3>KI-gestützt</h3>
+                <p>Modernste Künstliche Intelligenz versteht Ihre Anfragen und liefert präzise, hilfreiche Antworten.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="icon">🎯</div>
+                <h3>Personalisiert</h3>
+                <p>Individuelle Beratung basierend auf Ihren spezifischen Bedürfnissen und Anforderungen.</p>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about">
+            <h3>Über Viso360</h3>
+            <p>Viso360.de ist Ihr Partner für innovative digitale Lösungen. Wir entwickeln maßgeschneiderte Technologien, die Ihr Unternehmen voranbringen und Ihren Kunden außergewöhnliche Erfahrungen bieten.</p>
+            
+            <p>Unser Chatbot repräsentiert die neueste Generation intelligenter Kundenservice-Tools. Durch den Einsatz fortschrittlicher KI-Technologien können wir Ihnen einen Service bieten, der nicht nur effizient, sondern auch menschlich und verständnisvoll ist.</p>
+            
+            <p><strong>Testen Sie jetzt unseren Chatbot und erleben Sie die Zukunft des Kundenservice!</strong></p>
         </div>
     </div>
 
-    <!-- Debug Info -->
-    <div class="debug-info">
-        🎯 <strong>Viewport-Korrektur</strong><br>
-        Position: 150px top, 30px left<br>
-        Status: <span style="color: #4caf50;">✅ Aktiv</span><br>
-        <small>Sollte jetzt sichtbar sein!</small>
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Viso360.de - Innovative Digitale Lösungen | Chatbot Test-Version</p>
     </div>
 
     <!-- Langflow Chat -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
     <langflow-chat
-        window_title="Visco"
+        window_title="Viso360 Assistant"
         flow_id="04342e71-2daa-4384-9792-b4d7765f6f9b"
         host_url="https://langflowailangflowlatest-production-aec5.up.railway.app">
     </langflow-chat>
-
-    <script>
-        console.log('🎯 Viewport-Korrektur geladen - Chat bei 150px');
-        
-        // Sanfte Überprüfung
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const chat = document.querySelector('langflow-chat');
-                if (chat) {
-                    console.log('✅ Chat gefunden');
-                    const rect = chat.getBoundingClientRect();
-                    console.log(`📍 Aktuelle Position: ${rect.top}px top, ${rect.left}px left`);
-                    console.log(`📏 Größe: ${rect.width}px × ${rect.height}px`);
-                    
-                    // Ist der Chat im Viewport?
-                    const isInViewport = rect.top >= 0 && rect.left >= 0 && 
-                                       rect.top < window.innerHeight && 
-                                       rect.left < window.innerWidth;
-                    console.log(`👁️ Im Viewport: ${isInViewport ? '✅ JA' : '❌ NEIN'}`);
-                }
-            }, 2000);
-        });
-    </script>
 </body>
 </html>
