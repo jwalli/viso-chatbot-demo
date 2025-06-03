@@ -49,40 +49,11 @@
             font-size: 0.9em;
             margin-bottom: 15px;
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🤖 Karriere.Haus Chatbot</h1>
         
-        <div class="status">🟢 Demo Version - In Entwicklung</div>
-        
-        <div class="info">
-            <h3>🚀 Willkommen zur Chatbot-Demo!</h3>
-            <p><strong>Was können Sie hier testen:</strong></p>
-            <ul>
-                <li>Stellen Sie Fragen zum Unternehmen</li>
-                <li>Fragen Sie nach Karrieremöglichkeiten</li>
-                <li>Testen Sie verschiedene Gesprächsverläufe</li>
-            </ul>
-            <p><strong>⚠️ Hinweis:</strong> Dies ist eine Entwicklungsversion. Nicht alle Antworten sind final optimiert.</p>
-        </div>
-
-        <!-- Chatbot Integration -->
-        <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
-        <langflow-chat
-            window_title="Karriere.Haus-Chat-Bot"
-            flow_id="8da3f21e-4698-422e-a70a-7a9ad418da0d"
-            host_url="https://langflowailangflowlatest-production-aec5.up.railway.app"
-            api_key="...">
-        </langflow-chat>
-
-        <div class="footer">
-            <h3>📝 Feedback erwünscht!</h3>
-            <p>Ihre Meinung ist wichtig für die Weiterentwicklung.</p>
-            <p>📧 Feedback an: <a href="mailto:ihr-email@firma.de?subject=Chatbot Demo Feedback">ihr-email@firma.de</a></p>
-            <p><small>Letztes Update: Juni 2025 | Version: Demo 1.0</small></p>
-        </div>
-    </div>
-</body>
-</html>
+        /* ChatBubble oben links positionieren */
+        langflow-chat {
+            position: fixed !important;
+            top: 20px !important;
+            left: 20px !important;
+            bottom: auto !important;
+            right: auto !important;
