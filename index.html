@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visco Chat</title>
+    <title>Visco Chatbot Demo - Test</title>
     <style>
         * {
             margin: 0;
@@ -13,138 +13,216 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f7fa;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
         }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            padding: 40px;
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
             text-align: center;
-            max-width: 600px;
-            width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .logo {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: #333;
+        .header h1 {
             font-size: 2.5em;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 300;
         }
 
-        .subtitle {
-            color: #666;
+        .header p {
             font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Test Status Banner */
+        .test-banner {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
             margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .test-banner h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .test-banner p {
+            opacity: 0.9;
+        }
+
+        /* Chat Demo Section */
+        .chat-demo {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .chat-demo h3 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .chat-demo .description {
+            color: #666;
+            font-size: 1.1em;
             line-height: 1.6;
-        }
-
-        .chat-info {
-            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
-            padding: 25px;
-            border-radius: 15px;
             margin-bottom: 30px;
-            border-left: 5px solid #2196f3;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .chat-info h3 {
+        /* Chat Placeholder */
+        .chat-placeholder {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border: 2px dashed #2196f3;
+            border-radius: 15px;
+            padding: 60px 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .chat-placeholder .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .chat-placeholder h4 {
             color: #1976d2;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .chat-placeholder p {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        /* Instructions */
+        .instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .instruction-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            border-top: 4px solid #667eea;
+        }
+
+        .instruction-card .step {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 0 auto 20px;
+        }
+
+        .instruction-card h4 {
+            color: #333;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
 
-        .chat-info p {
-            color: #555;
+        .instruction-card p {
+            color: #666;
             line-height: 1.6;
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .feature {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .feature h4 {
-            color: #333;
-            margin-bottom: 8px;
-        }
-
-        .feature p {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #888;
-            font-size: 0.9em;
-        }
-
+        /* Debug Info */
         .debug {
             position: fixed;
-            top: 10px;
-            right: 10px;
+            top: 20px;
+            right: 20px;
             background: rgba(0,0,0,0.8);
             color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 15px 20px;
+            border-radius: 10px;
             font-family: monospace;
-            font-size: 12px;
+            font-size: 14px;
             z-index: 9999;
-            max-width: 200px;
+            max-width: 250px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
         }
 
         .debug.success {
-            background: rgba(76, 175, 80, 0.9);
+            background: linear-gradient(135deg, #4caf50, #45a049);
         }
 
         .debug.error {
-            background: rgba(244, 67, 54, 0.9);
+            background: linear-gradient(135deg, #f44336, #d32f2f);
         }
 
-        /* Responsive Design */
+        .debug.loading {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            h1 {
+            .header h1 {
                 font-size: 2em;
             }
             
-            .features {
-                grid-template-columns: 1fr;
+            .chat-demo {
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 20px 10px;
+            }
+            
+            .debug {
+                top: 10px;
+                right: 10px;
+                font-size: 12px;
+                padding: 10px 15px;
             }
         }
 
-        /* Animation */
+        /* Animations */
         .container {
             animation: fadeInUp 0.8s ease-out;
         }
@@ -159,72 +237,138 @@
                 transform: translateY(0);
             }
         }
+
+        .chat-placeholder {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🤖 Visco Chatbot</h1>
+        <p>Intelligente Unterhaltungen - Demo & Test</p>
+    </div>
+
+    <!-- Main Container -->
     <div class="container">
-        <div class="logo">🤖</div>
-        <h1>Visco Chat</h1>
-        <p class="subtitle">Ihr intelligenter Gesprächspartner für alle Fragen</p>
-        
-        <div class="chat-info">
-            <h3>💬 Chat ist bereit!</h3>
-            <p>Klicken Sie auf das Chat-Symbol, um eine Unterhaltung zu beginnen. Stellen Sie Fragen oder lassen Sie sich beraten.</p>
+        <!-- Test Banner -->
+        <div class="test-banner">
+            <h2>🧪 TEST-MODUS AKTIV</h2>
+            <p>Diese Demo dient zu Testzwecken. Der Chatbot befindet sich in der Entwicklungsphase.</p>
         </div>
 
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">⚡</div>
-                <h4>Schnelle Antworten</h4>
-                <p>Erhalten Sie sofortige Hilfe zu Ihren Fragen</p>
+        <!-- Chat Demo Section -->
+        <div class="chat-demo">
+            <h3>Chat-Demo</h3>
+            <div class="description">
+                Testen Sie unseren intelligenten Chatbot! Der Chat sollte automatisch als kleine Blase erscheinen. 
+                Falls Sie den Chat nicht sehen, überprüfen Sie die Debug-Informationen oben rechts.
             </div>
-            <div class="feature">
-                <div class="feature-icon">🎯</div>
-                <h4>Präzise Beratung</h4>
-                <p>Maßgeschneiderte Lösungen für Ihre Anliegen</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔒</div>
-                <h4>Sicher & Privat</h4>
-                <p>Ihre Daten bleiben geschützt und vertraulich</p>
+
+            <div class="chat-placeholder">
+                <div class="icon">💬</div>
+                <h4>Chat wird geladen...</h4>
+                <p>Der Chatbot sollte als schwebende Blase erscheinen.<br>
+                   Schauen Sie nach dem Chat-Symbol in einer der Ecken!</p>
             </div>
         </div>
 
-        <div class="footer">
-            <p>Powered by Visco AI • Version 1.0</p>
+        <!-- Instructions -->
+        <div class="instructions">
+            <div class="instruction-card">
+                <div class="step">1</div>
+                <h4>Chat finden</h4>
+                <p>Suchen Sie nach der Chat-Blase, die normalerweise in einer Ecke des Bildschirms erscheint.</p>
+            </div>
+
+            <div class="instruction-card">
+                <div class="step">2</div>
+                <h4>Chat öffnen</h4>
+                <p>Klicken Sie auf die Chat-Blase, um das Chatfenster zu öffnen und eine Unterhaltung zu beginnen.</p>
+            </div>
+
+            <div class="instruction-card">
+                <div class="step">3</div>
+                <h4>Testen</h4>
+                <p>Stellen Sie Fragen und testen Sie die verschiedenen Funktionen des Chatbots.</p>
+            </div>
         </div>
     </div>
 
-    <div class="debug" id="debug">
-        Lade Chat-Komponente...
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Visco Chatbot Demo • Entwickelt für Testzwecke</p>
     </div>
 
+    <!-- Debug Info -->
+    <div class="debug loading" id="debug">
+        🔄 Lade Chat-Komponente...
+    </div>
+
+    <!-- Chatbot Integration -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
     
     <script>
         // Debug-Informationen
-        console.log('Script geladen');
+        console.log('🚀 Chat-Script wird geladen...');
         
         // Prüfen ob langflow-chat Element existiert
         setTimeout(() => {
             const chatElement = document.querySelector('langflow-chat');
             const debugDiv = document.getElementById('debug');
+            const placeholder = document.querySelector('.chat-placeholder');
             
             if (chatElement) {
-                debugDiv.innerHTML = '✓ Chat bereit';
+                debugDiv.innerHTML = '✅ Chat erfolgreich geladen!<br><small>Suchen Sie nach der Chat-Blase</small>';
                 debugDiv.className = 'debug success';
-                console.log('Chat-Element gefunden:', chatElement);
                 
-                // Debug-Info nach 3 Sekunden ausblenden
+                // Placeholder aktualisieren
+                placeholder.innerHTML = `
+                    <div class="icon">✅</div>
+                    <h4>Chat ist bereit!</h4>
+                    <p>Der Chatbot wurde erfolgreich geladen.<br>
+                       Suchen Sie nach der Chat-Blase auf der Seite!</p>
+                `;
+                
+                console.log('✅ Chat-Element gefunden:', chatElement);
+                
+                // Debug-Info nach 5 Sekunden ausblenden
                 setTimeout(() => {
-                    debugDiv.style.display = 'none';
-                }, 3000);
+                    debugDiv.style.opacity = '0.7';
+                    debugDiv.style.fontSize = '12px';
+                }, 5000);
             } else {
-                debugDiv.innerHTML = '✗ Chat-Fehler';
+                debugDiv.innerHTML = '❌ Chat konnte nicht geladen werden<br><small>Siehe Browser-Konsole</small>';
                 debugDiv.className = 'debug error';
-                console.log('Chat-Element nicht gefunden');
+                
+                // Placeholder aktualisieren
+                placeholder.innerHTML = `
+                    <div class="icon">❌</div>
+                    <h4>Chat-Fehler</h4>
+                    <p>Der Chatbot konnte nicht geladen werden.<br>
+                       Überprüfen Sie die Konsole für Details.</p>
+                `;
+                
+                console.log('❌ Chat-Element nicht gefunden');
             }
-        }, 2000);
+        }, 3000);
+
+        // Zusätzliche Debug-Informationen
+        window.addEventListener('load', () => {
+            console.log('📄 Seite vollständig geladen');
+        });
+
+        // Fehler abfangen
+        window.addEventListener('error', (e) => {
+            console.error('🚨 JavaScript-Fehler:', e.error);
+        });
     </script>
     
     <langflow-chat
