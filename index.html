@@ -98,6 +98,7 @@
             padding: 60px 20px;
             margin: 30px 0;
             text-align: center;
+            position: relative;
         }
 
         .chat-placeholder .icon {
@@ -115,6 +116,26 @@
         .chat-placeholder p {
             color: #555;
             font-size: 1.1em;
+        }
+
+        /* Chat Position Indicator */
+        .position-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         /* Instructions */
@@ -200,6 +221,92 @@
             opacity: 0.8;
         }
 
+        /* LANGFLOW CHAT CUSTOMIZATION */
+        /* Chat Button Position - Unten Rechts */
+        langflow-chat {
+            --chat-button-position-bottom: 30px !important;
+            --chat-button-position-right: 30px !important;
+            --chat-button-position-left: auto !important;
+            --chat-button-position-top: auto !important;
+        }
+
+        /* Chat Window Position - Öffnet nach oben links */
+        langflow-chat::part(chat-window) {
+            bottom: 100px !important;
+            right: 30px !important;
+            top: auto !important;
+            left: auto !important;
+            transform-origin: bottom right !important;
+        }
+
+        /* Alternative CSS-Selektoren für verschiedene Langflow-Versionen */
+        .langflow-chat-button {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            top: auto !important;
+            left: auto !important;
+            z-index: 1000 !important;
+        }
+
+        .langflow-chat-window {
+            position: fixed !important;
+            bottom: 100px !important;
+            right: 30px !important;
+            top: auto !important;
+            left: auto !important;
+            max-height: calc(100vh - 140px) !important;
+            transform-origin: bottom right !important;
+        }
+
+        /* Für verschiedene Chat-Container */
+        [class*="chat-button"] {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            top: auto !important;
+            left: auto !important;
+        }
+
+        [class*="chat-window"], 
+        [class*="chat-container"] {
+            position: fixed !important;
+            bottom: 100px !important;
+            right: 30px !important;
+            top: auto !important;
+            left: auto !important;
+            max-height: calc(100vh - 140px) !important;
+        }
+
+        /* Responsive Chat Positioning */
+        @media (max-width: 768px) {
+            langflow-chat {
+                --chat-button-position-bottom: 20px !important;
+                --chat-button-position-right: 20px !important;
+            }
+
+            .langflow-chat-button {
+                bottom: 20px !important;
+                right: 20px !important;
+            }
+
+            .langflow-chat-window {
+                bottom: 80px !important;
+                right: 20px !important;
+                left: 20px !important;
+                width: calc(100vw - 40px) !important;
+                max-width: none !important;
+            }
+
+            [class*="chat-window"], 
+            [class*="chat-container"] {
+                bottom: 80px !important;
+                right: 20px !important;
+                left: 20px !important;
+                width: calc(100vw - 40px) !important;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header h1 {
@@ -268,15 +375,18 @@
         <div class="chat-demo">
             <h3>Chat-Demo</h3>
             <div class="description">
-                Testen Sie unseren intelligenten Chatbot! Der Chat sollte automatisch als kleine Blase erscheinen. 
-                Falls Sie den Chat nicht sehen, überprüfen Sie die Debug-Informationen oben rechts.
+                Testen Sie unseren intelligenten Chatbot! Der Chat erscheint als Blase <strong>unten rechts</strong> 
+                und öffnet sich nach <strong>oben links</strong>. Falls Sie den Chat nicht sehen, überprüfen Sie die Debug-Informationen.
             </div>
 
             <div class="chat-placeholder">
                 <div class="icon">💬</div>
                 <h4>Chat wird geladen...</h4>
-                <p>Der Chatbot sollte als schwebende Blase erscheinen.<br>
-                   Schauen Sie nach dem Chat-Symbol in einer der Ecken!</p>
+                <p>Der Chatbot sollte als schwebende Blase <strong>unten rechts</strong> erscheinen.<br>
+                   Das Chatfenster öffnet sich nach <strong>oben links</strong>!</p>
+                <div class="position-indicator">
+                    👆 Chat erscheint hier!
+                </div>
             </div>
         </div>
 
@@ -284,20 +394,20 @@
         <div class="instructions">
             <div class="instruction-card">
                 <div class="step">1</div>
-                <h4>Chat finden</h4>
-                <p>Suchen Sie nach der Chat-Blase, die normalerweise in einer Ecke des Bildschirms erscheint.</p>
+                <h4>Chat-Blase finden</h4>
+                <p>Schauen Sie <strong>unten rechts</strong> auf der Seite nach der runden Chat-Blase.</p>
             </div>
 
             <div class="instruction-card">
                 <div class="step">2</div>
                 <h4>Chat öffnen</h4>
-                <p>Klicken Sie auf die Chat-Blase, um das Chatfenster zu öffnen und eine Unterhaltung zu beginnen.</p>
+                <p>Klicken Sie auf die Blase. Das Chatfenster öffnet sich <strong>nach oben links</strong>.</p>
             </div>
 
             <div class="instruction-card">
                 <div class="step">3</div>
-                <h4>Testen</h4>
-                <p>Stellen Sie Fragen und testen Sie die verschiedenen Funktionen des Chatbots.</p>
+                <h4>Testen & Feedback</h4>
+                <p>Stellen Sie Fragen und testen Sie alle Funktionen. Geben Sie uns Ihr Feedback!</p>
             </div>
         </div>
     </div>
@@ -326,7 +436,7 @@
             const placeholder = document.querySelector('.chat-placeholder');
             
             if (chatElement) {
-                debugDiv.innerHTML = '✅ Chat erfolgreich geladen!<br><small>Suchen Sie nach der Chat-Blase</small>';
+                debugDiv.innerHTML = '✅ Chat erfolgreich geladen!<br><small>Unten rechts suchen</small>';
                 debugDiv.className = 'debug success';
                 
                 // Placeholder aktualisieren
@@ -334,15 +444,19 @@
                     <div class="icon">✅</div>
                     <h4>Chat ist bereit!</h4>
                     <p>Der Chatbot wurde erfolgreich geladen.<br>
-                       Suchen Sie nach der Chat-Blase auf der Seite!</p>
+                       <strong>Schauen Sie unten rechts</strong> nach der Chat-Blase!</p>
+                    <div class="position-indicator">
+                        👆 Chat ist hier!
+                    </div>
                 `;
                 
                 console.log('✅ Chat-Element gefunden:', chatElement);
                 
-                // Debug-Info nach 5 Sekunden ausblenden
+                // Debug-Info nach 5 Sekunden minimieren
                 setTimeout(() => {
                     debugDiv.style.opacity = '0.7';
                     debugDiv.style.fontSize = '12px';
+                    debugDiv.innerHTML = '✅ Chat aktiv';
                 }, 5000);
             } else {
                 debugDiv.innerHTML = '❌ Chat konnte nicht geladen werden<br><small>Siehe Browser-Konsole</small>';
@@ -363,6 +477,27 @@
         // Zusätzliche Debug-Informationen
         window.addEventListener('load', () => {
             console.log('📄 Seite vollständig geladen');
+            
+            // Nach dem Laden nochmal nach Chat-Elementen suchen
+            setTimeout(() => {
+                const allChatElements = document.querySelectorAll('[class*="chat"], langflow-chat');
+                console.log('🔍 Gefundene Chat-Elemente:', allChatElements);
+                
+                // CSS-Regeln forcieren
+                const style = document.createElement('style');
+                style.textContent = `
+                    /* Zusätzliche Positionierung */
+                    div[class*="chat-button"], 
+                    button[class*="chat"],
+                    .chat-trigger {
+                        position: fixed !important;
+                        bottom: 30px !important;
+                        right: 30px !important;
+                        z-index: 9999 !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }, 1000);
         });
 
         // Fehler abfangen
