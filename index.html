@@ -171,53 +171,25 @@
             opacity: 0.8;
         }
 
-        /* Chat Positionierung - KORRIGIERT */
+        /* Chat Positionierung - Oben Links */
         langflow-chat {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            top: auto !important;
-            left: auto !important;
+            position: relative !important;
+            float: left !important;
+            margin: 20px !important;
             z-index: 9999 !important;
-            width: 300px !important;
-            max-width: 90vw !important;
-            height: 400px !important;
-            max-height: 70vh !important;
-            overflow: visible !important;
+            width: 350px !important;
+            height: 500px !important;
             border-radius: 10px !important;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
         }
 
-        /* Mobile Responsive - KORRIGIERT */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.2em;
-            }
-            
-            .hero {
-                padding: 30px 20px;
-            }
-            
-            .hero h2 {
-                font-size: 2em;
-            }
-            
-            .container {
-                padding: 30px 15px;
-            }
-            
-            .about {
-                padding: 30px 20px;
-            }
-            
             langflow-chat {
-                width: calc(100vw - 20px) !important;
-                right: 10px !important;
-                bottom: 10px !important;
-                left: auto !important;
-                top: auto !important;
-                height: 350px !important;
-                max-height: 60vh !important;
+                width: 100% !important;
+                max-width: 400px !important;
+                height: 400px !important;
+                margin: 10px !important;
             }
         }
     </style>
