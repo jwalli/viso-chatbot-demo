@@ -171,14 +171,15 @@
             opacity: 0.8;
         }
 
-        /* Chat Positionierung - Oben Links */
+        /* Chat Positionierung - Oben Links Sticky */
         langflow-chat {
-            position: relative !important;
-            float: left !important;
-            margin: 20px !important;
+            position: fixed !important;
+            top: 20px !important;
+            left: 20px !important;
             z-index: 9999 !important;
             width: 350px !important;
             height: 500px !important;
+            max-height: calc(100vh - 40px) !important;
             border-radius: 10px !important;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
         }
@@ -186,10 +187,10 @@
         /* Mobile Responsive */
         @media (max-width: 768px) {
             langflow-chat {
-                width: 100% !important;
-                max-width: 400px !important;
+                width: calc(100vw - 40px) !important;
                 height: 400px !important;
-                margin: 10px !important;
+                top: 10px !important;
+                left: 10px !important;
             }
         }
     </style>
