@@ -171,7 +171,7 @@
             opacity: 0.8;
         }
 
-        /* Chat Positionierung - OHNE DEBUG */
+        /* Chat Positionierung - KORRIGIERT */
         langflow-chat {
             position: fixed !important;
             bottom: 20px !important;
@@ -179,13 +179,14 @@
             top: auto !important;
             left: auto !important;
             z-index: 9999 !important;
-            width: 380px !important;
+            width: 350px !important;
             max-width: calc(100vw - 40px) !important;
-            height: 500px !important;
-            max-height: calc(100vh - 40px) !important;
+            height: 450px !important;
+            max-height: calc(100vh - 60px) !important;
+            overflow: hidden !important;
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive - KORRIGIERT */
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2.2em;
@@ -208,11 +209,13 @@
             }
             
             langflow-chat {
-                width: calc(100vw - 20px) !important;
-                left: 10px !important;
-                top: 10px !important;
-                height: 400px !important;
-                max-height: calc(100vh - 20px) !important;
+                width: calc(100vw - 30px) !important;
+                right: 15px !important;
+                bottom: 15px !important;
+                left: auto !important;
+                top: auto !important;
+                height: 350px !important;
+                max-height: calc(100vh - 80px) !important;
             }
         }
     </style>
