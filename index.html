@@ -133,45 +133,7 @@
             margin: 0 auto;
         }
 
-        /* About Section */
-        .about {
-            background: white;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .about h3 {
-            color: #2c3e50;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .about p {
-            color: #555;
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            text-align: center;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Footer */
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .footer p {
-            opacity: 0.8;
-        }
-
-        /* Chat Positionierung - Ursprünglich oben links */
+        /* Chat Positionierung - Oben links */
         langflow-chat {
             position: fixed !important;
             top: 20px !important;
@@ -186,6 +148,22 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .hero {
+                padding: 30px 20px;
+            }
+            
+            .hero h2 {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 30px 15px;
+            }
+            
             langflow-chat {
                 width: calc(100vw - 40px) !important;
                 height: 400px !important;
@@ -210,7 +188,7 @@
             <p>Erleben Sie die Zukunft des Kundenservice mit unserem KI-gestützten Chatbot. Stellen Sie Fragen, erhalten Sie sofortige Antworten und entdecken Sie, wie künstliche Intelligenz Ihren Service revolutionieren kann.</p>
         </div>
 
-        <!-- Test Section mit integriertem Chat -->
+        <!-- Test Section -->
         <div class="test-section">
             <h3>🚀 Live-Test verfügbar</h3>
             <p>Der Chatbot ist jetzt aktiv! Testen Sie unsere KI-Technologie oben links auf der Seite.</p>
@@ -236,9 +214,15 @@
                 <p>Individuelle Beratung basierend auf Ihren spezifischen Bedürfnissen und Anforderungen.</p>
             </div>
         </div>
+    </div>
 
-        
     <!-- Langflow Chat -->
     <script src="https://cdn.jsdelivr.net/gh/logspace-ai/langflow-embedded-chat@v1.0.7/dist/build/static/js/bundle.min.js"></script>
+    <langflow-chat
+        window_title="Visco"
+        flow_id="04342e71-2daa-4384-9792-b4d7765f6f9b"
+        host_url="https://langflowailangflowlatest-production-aec5.up.railway.app"
+        api_key="sk-LmErrNGTDKeFkXUAwi3ythxABb9FPLq6WiVymlc-Jn0">
+    </langflow-chat>
 </body>
 </html>
